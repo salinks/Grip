@@ -6,7 +6,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grip/utils/gripUtils.dart';
-import 'package:grip/views/home_page.dart';
+import 'package:grip/views/appIntroPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenPage extends StatefulWidget {
 
@@ -22,13 +23,23 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 
   startSplashScreen() async {
+    var introStatus = await getAppIntroStatus();
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) {
-          return HomePage();
-        }),
-      );
+
+
+      if(introStatus){
+
+      }
+      else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) {
+            return AppIntroPage();
+          }),
+        );
+      }
+
+
     });
   }
 
@@ -46,5 +57,9 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     );
   }
 
-
+  Future<bool> getAppIntroStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool token = (prefs.getBool('appIntro') ?? false);
+    return token;
+  }
 }
