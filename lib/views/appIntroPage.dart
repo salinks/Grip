@@ -2,9 +2,12 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:grip/utils/global_variables.dart';
 import 'package:grip/utils/gripUtils.dart';
 import 'package:grip/views/home_page.dart';
+import 'package:grip/views/login_page.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppIntroPage extends StatefulWidget {
 
@@ -17,13 +20,23 @@ class AppIntroPage extends StatefulWidget {
 class OnBoardingPageState extends State<AppIntroPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(context) {
-    // Navigator.of(context).pushReplacement(
-    //   MaterialPageRoute(builder: (_) =>
-    //       HomePage()),
-    // );
+  Future<void> _onIntroEnd(context) async {
+    var lSt = GlobalVariables.userId;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("appIntro", true);
+    if (lSt == "") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) =>
+            LoginActivity()),
+      );
+    }
+    else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) =>
+            HomePage()),
+      );
+    }
   }
-
 
 
   Widget _buildImage(String assetName, [double width = 350]) {
@@ -45,9 +58,11 @@ class OnBoardingPageState extends State<AppIntroPage> {
     return IntroductionScreen(
       key: introKey,
       globalBackgroundColor:  GripUtils().parseColor("#6bdad4"),
-      allowImplicitScrolling: true,
+      allowImplicitScrolling: false,
       autoScrollDuration: 3000,
       infiniteAutoScroll: false,
+
+
 
 
       pages: [
@@ -110,6 +125,8 @@ class OnBoardingPageState extends State<AppIntroPage> {
       ),
     );
   }
+
+
 
 
 }

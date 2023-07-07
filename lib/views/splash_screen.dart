@@ -3,10 +3,12 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grip/utils/global_variables.dart';
 import 'package:grip/utils/gripUtils.dart';
 import 'package:grip/views/appIntroPage.dart';
+import 'package:grip/views/home_page.dart';
+import 'package:grip/views/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -24,11 +26,25 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   startSplashScreen() async {
     var introStatus = await getAppIntroStatus();
+    var loginStatus = await getLoginStatus();
+    GlobalVariables.userId=loginStatus;
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
 
 
       if(introStatus){
+        if (loginStatus == "") {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) =>
+                LoginActivity()),
+          );
+        }
+        else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) =>
+                HomePage()),
+          );
+        }
 
       }
       else {
@@ -60,6 +76,12 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Future<bool> getAppIntroStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool token = (prefs.getBool('appIntro') ?? false);
+    return token;
+  }
+
+  Future<String> getLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = (prefs.getString('userId') ?? "");
     return token;
   }
 }
