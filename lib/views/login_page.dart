@@ -15,6 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../models/login/LoginResponse.dart';
+
 class LoginActivity extends StatefulWidget {
   @override
   _LoginActivityState createState() => _LoginActivityState();
@@ -50,13 +52,13 @@ void doLogin(String email, String password)  {
     }
     else{
       if (email.isEmpty) {
-        warningToast("Email address cannot be empty");
+        warningToast("Username cannot be empty");
         return;
       }
-      if (isEmail(email) == false) {
+    /*  if (isEmail(email) == false) {
         warningToast("Enter a valid email address");
         return;
-      }
+      }*/
 
       if (password.isEmpty) {
         warningToast("Password cannot be empty");
@@ -66,7 +68,7 @@ void doLogin(String email, String password)  {
       pr.show();
     }
 
-    presenter.doLoginGet(email,pr);
+    presenter.doLogin(email,password,pr);
   }
 
   @override
@@ -170,7 +172,6 @@ void doLogin(String email, String password)  {
                       TextFormField(
                         onTap: () {},
                         controller: usernameController,
-                        // Controller for Username
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                             border: InputBorder.none,
@@ -218,7 +219,7 @@ void doLogin(String email, String password)  {
                   padding: EdgeInsets.only(top: 20),
                   child: ElevatedButton(
                     onPressed: () {
-                      doLogin("", "");
+                      doLogin(usernameController.text, passwordController.text);
                     },
                     style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(
@@ -337,6 +338,7 @@ void doLogin(String email, String password)  {
                     onPressed: () async {
                       Navigator.of(context).pop();
 
+                      ApiConstants.hostAddress =  ipController.text;
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                       await prefs.setString("ipAddress", ipController.text);
@@ -464,6 +466,27 @@ void doLogin(String email, String password)  {
     RegExp regExp = RegExp(p);
     return regExp.hasMatch(em);
   }
+
+  @override
+  Future<void> successAction(LoginResponse? response) async {
+    if(response != null && response.data != null && response.data!.isNotEmpty){
+      var firstName = response.data?[0].firstName;
+      var email = response.data?[0].email;
+      var memberID = response.data?[0].memberID;
+      SharedPreferences prefs =
+      await SharedPreferences.getInstance();
+      await prefs.setString("firstName", firstName!);
+      await prefs.setString("email", email!);
+      await prefs.setString("userId", memberID!.toString());
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) =>
+            HomePage()),
+      );
+
+    }
+
+  }
+
 
 
 }

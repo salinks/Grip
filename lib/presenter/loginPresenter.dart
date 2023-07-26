@@ -12,38 +12,24 @@ class LoginActivityPresenter implements LoginActivityInteractor {
 
 
 
-  @override
-  void doLoginGet(String code,ProgressDialog pr) async {
-    await api.doLogin(code).then((it){
-      if(it?.statusCode == "1"){
-        // User u = User.fromJson(it.data);
-        // this.success(u.api_token);
-        view?.finish();
-      }else{
-       // view?.toast("Login gagal. Periksa email dan katasandi anda");
-      }
-    }).catchError((e){
-      print("Exception $e");
-     // view?.toast("Terjadi kesalahan");
-    });
-  }
 
 
 
   @override
   void doLogin(String userName,String password, ProgressDialog pr) async {
-    await api.forgotPassword(userName).then((it){
+    await api.doLogin(userName,password).then((it){
       pr.hide();
       if(it != null){
-        // if(it.statusCode == "200"){
-        //   view.successToast(it.statusMessage);
-        //   view.successAction();
-        // }else{
-        //   view.errorToast(it.statusMessage);
-        // }
+        if(it.result?.statusCode == "200"){
+          view.successToast(it.result!.statusMessage.toString());
+          view.successAction(it);
+        }else{
+          view.errorToast(it.result!.statusMessage.toString());
+        }
 
       }
       else{
+        pr.hide();
         view.errorToast("Something went wrong");
       }
     }).catchError((e){
@@ -66,4 +52,6 @@ class LoginActivityPresenter implements LoginActivityInteractor {
   void success(String token) {
 
   }
+
+
 }

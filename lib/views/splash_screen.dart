@@ -11,6 +11,8 @@ import 'package:grip/views/home_page.dart';
 import 'package:grip/views/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../webservice/api_constants.dart';
+
 class SplashScreenPage extends StatefulWidget {
 
   @override
@@ -26,6 +28,8 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   startSplashScreen() async {
     var introStatus = await getAppIntroStatus();
+    var url = await getHostAddress();
+    ApiConstants.hostAddress = url;
     var loginStatus = await getLoginStatus();
     GlobalVariables.userId=loginStatus;
     var duration = const Duration(seconds: 5);
@@ -75,6 +79,10 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   Future<bool> getAppIntroStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("firstName", "SALIN");
+    await prefs.setString("email", "a@b.com");
+    await prefs.setString("userId", "1");
+
     bool token = (prefs.getBool('appIntro') ?? false);
     return token;
   }
@@ -82,6 +90,11 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   Future<String> getLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = (prefs.getString('userId') ?? "");
+    return token;
+  }
+  Future<String> getHostAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = (prefs.getString('ipAddress') ?? "");
     return token;
   }
 }

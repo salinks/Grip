@@ -13,8 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  introduction_screen: ^3.1.9
+  intl: ^0.18.1
+  introduction_screen: ^3.1.11
   cupertino_icons: ^1.0.5
   google_fonts: ^5.1.0
   shared_preferences: ^2.2.0

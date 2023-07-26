@@ -1,7 +1,8 @@
+import 'package:grip/models/login/LoginResponse.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 
 class LoginActivityInteractor {
-  void doLoginGet(String email,ProgressDialog pr){}
+
   void doLogin(String email,String password,ProgressDialog pr){}
 
   void destroy(){}
@@ -13,4 +14,6 @@ class LoginActivityView{
   void errorToast(String message){}
 
   void finish(){}
+
+  void successAction(LoginResponse? it) {}
 }
