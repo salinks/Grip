@@ -64,7 +64,7 @@ class Data {
         this.webLoginPassword});
 
   Data.fromJson(Map<String, dynamic> json) {
-    memberID = json['MemberID'];
+    memberID = json['MEMBER_ID'];
     firstName = json['FirstName'];
     email = json['Email'];
     webLoginId = json['WebLoginId'];
@@ -73,7 +73,7 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['MemberID'] = this.memberID;
+    data['MEMBER_ID'] = this.memberID;
     data['FirstName'] = this.firstName;
     data['Email'] = this.email;
     data['WebLoginId'] = this.webLoginId;

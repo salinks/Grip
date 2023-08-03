@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:grip/models/dashboard/freezing_details.dart';
 import 'package:grip/models/dashboard/my_packages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../interacters/dashboard_contract.dart';
 import '../presenter/dashboard_presenter.dart';
 import '../utils/gripUtils.dart';
+import 'book_now_page.dart';
 
 class DashboardActivity extends StatefulWidget {
   @override
@@ -44,22 +46,20 @@ class _DashboardActivityState extends State<DashboardActivity>
                               Color.fromRGBO(107, 218, 212, 1.0)),
                         )))
                 : Expanded(
-                    child: SingleChildScrollView(
-                        child: Column(
+                    child:  Column(
                       children: [
-
                         Container(
-
                           width: double.infinity,
                           height: 150,
                           decoration: BoxDecoration(
                             color: const Color.fromRGBO(0, 0, 0, 0.8),
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                              colorFilter: ColorFilter.mode(
+                                  Colors.black.withOpacity(0.2),
+                                  BlendMode.dstATop),
                               image: AssetImage(
                                 './assets/images/dash_heder.png',
-
                               ),
                             ),
                           ),
@@ -69,9 +69,10 @@ class _DashboardActivityState extends State<DashboardActivity>
                             margin: EdgeInsets.only(top: 20),
                             child: Center(
                               child: Column(
-                                children:<Widget> [
+                                children: <Widget>[
                                   Text(
-                                    "SCHEDULE YOUR CLASSES / SESSIONS".toUpperCase(),
+                                    "SCHEDULE YOUR CLASSES / SESSIONS"
+                                        .toUpperCase(),
                                     style: TextStyle(
                                       letterSpacing: 2.5,
                                       color: Colors.white,
@@ -80,34 +81,42 @@ class _DashboardActivityState extends State<DashboardActivity>
                                     ),
                                     textAlign: TextAlign.left,
                                   ),
-                            SizedBox(
-                              width: 100,
-                              height: 20,),
-                                 SizedBox(
-                                   width: 130,
-                                   height: 40,
-                                   child:  ElevatedButton(
-                                     onPressed: () async {
-
-                                     },
-                                     style: ElevatedButton.styleFrom(
-                                         padding: EdgeInsets.symmetric(
-                                             horizontal: 0.0, vertical: 0.0),
-                                         backgroundColor: Color.fromRGBO(213, 0, 109, 1.0),
-                                         shape: RoundedRectangleBorder(
-                                             borderRadius: BorderRadius.circular(8.0))),
-                                     child: Text(
-                                       "BOOK NOW",
-                                       style: TextStyle(color: Colors.white, fontSize: 15),
-                                     ),
-                                   ),
-                                 )
+                                  SizedBox(
+                                    width: 100,
+                                    height: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 130,
+                                    height: 40,
+                                    child: ElevatedButton(
+                                      onPressed: ()  {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookNowActivity()),
+                                        );
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 0.0, vertical: 0.0),
+                                          backgroundColor:
+                                              Color.fromRGBO(213, 0, 109, 1.0),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0))),
+                                      child: Text(
+                                        "BOOK NOW",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 15),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
                           ),
                         ),
-
                         SizedBox(
                           height: 20,
                         ),
@@ -132,7 +141,6 @@ class _DashboardActivityState extends State<DashboardActivity>
                                 itemCount: packageData!.length,
                                 itemBuilder: (context, index) => SizedBox(
                                   width: double.infinity,
-
                                   child: Card(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5)),
@@ -227,42 +235,46 @@ class _DashboardActivityState extends State<DashboardActivity>
                                                             "${packageData![index].validityInDays.toString()} Days",
                                                             maxLines: 1,
                                                             overflow:
-                                                            TextOverflow
-                                                                .clip,
+                                                                TextOverflow
+                                                                    .clip,
                                                             softWrap: false,
                                                             style: TextStyle(
-                                                              color: Colors
-                                                                  .black,
+                                                              color:
+                                                                  Colors.black,
                                                               fontSize: 12,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w700,
+                                                                  FontWeight
+                                                                      .w700,
                                                             ),
                                                           )),
                                                       Expanded(
                                                         flex: 5,
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsets.only(
-                                                              right: 10),
+                                                              EdgeInsets.only(
+                                                                  right: 10),
                                                           child: Text(
-                                                            GripUtils().dateOneFormat2Another(packageData![index].endDate.toString(),"yyyy-MM-dd'T'HH:mm:ss","dd MMM yyyy"),
+                                                            GripUtils().dateOneFormat2Another(
+                                                                packageData![
+                                                                        index]
+                                                                    .endDate
+                                                                    .toString(),
+                                                                "yyyy-MM-dd'T'HH:mm:ss",
+                                                                "dd MMM yyyy"),
                                                             style: TextStyle(
-                                                              color:Colors
-                                                                  .black,
+                                                              color:
+                                                                  Colors.black,
                                                               fontSize: 12,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w700,
+                                                                  FontWeight
+                                                                      .w700,
                                                             ),
                                                             textAlign:
-                                                            TextAlign.right,
+                                                                TextAlign.right,
                                                           ),
                                                         ),
                                                       )
                                                     ]),
-
-
                                                     SizedBox(height: 5),
                                                     Row(children: <Widget>[
                                                       Expanded(
@@ -271,33 +283,33 @@ class _DashboardActivityState extends State<DashboardActivity>
                                                             "Package Amount",
                                                             style: TextStyle(
                                                               color:
-                                                              Colors.black,
+                                                                  Colors.black,
                                                               fontSize: 10,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w300,
+                                                                  FontWeight
+                                                                      .w300,
                                                             ),
                                                             textAlign:
-                                                            TextAlign.left,
+                                                                TextAlign.left,
                                                           )),
                                                       Expanded(
                                                         flex: 5,
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsets.only(
-                                                              right: 10),
+                                                              EdgeInsets.only(
+                                                                  right: 10),
                                                           child: Text(
                                                             "Amount Paid",
                                                             style: TextStyle(
                                                               color:
-                                                              Colors.black,
+                                                                  Colors.black,
                                                               fontSize: 10,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w300,
+                                                                  FontWeight
+                                                                      .w300,
                                                             ),
                                                             textAlign:
-                                                            TextAlign.right,
+                                                                TextAlign.right,
                                                           ),
                                                         ),
                                                       )
@@ -306,44 +318,61 @@ class _DashboardActivityState extends State<DashboardActivity>
                                                       Expanded(
                                                           flex: 5,
                                                           child: Text(
-                                                            GripUtils().currencyFormatter(packageData![index].packageAmount != null ? packageData![index].packageAmount.toString() :"0",true),
+                                                            GripUtils().currencyFormatter(
+                                                                packageData![index]
+                                                                            .packageAmount !=
+                                                                        null
+                                                                    ? packageData![
+                                                                            index]
+                                                                        .packageAmount
+                                                                        .toString()
+                                                                    : "0",
+                                                                true),
                                                             maxLines: 1,
                                                             overflow:
-                                                            TextOverflow
-                                                                .clip,
+                                                                TextOverflow
+                                                                    .clip,
                                                             softWrap: false,
                                                             style: TextStyle(
-                                                              color: Colors
-                                                                  .black,
+                                                              color:
+                                                                  Colors.black,
                                                               fontSize: 12,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w700,
+                                                                  FontWeight
+                                                                      .w700,
                                                             ),
                                                           )),
                                                       Expanded(
                                                         flex: 5,
                                                         child: Padding(
                                                           padding:
-                                                          EdgeInsets.only(
-                                                              right: 10),
+                                                              EdgeInsets.only(
+                                                                  right: 10),
                                                           child: Text(
-                                                            GripUtils().currencyFormatter(packageData![index].paidAmount != null ? packageData![index].paidAmount.toString() :"0",true),
+                                                            GripUtils().currencyFormatter(
+                                                                packageData![index]
+                                                                            .paidAmount !=
+                                                                        null
+                                                                    ? packageData![
+                                                                            index]
+                                                                        .paidAmount
+                                                                        .toString()
+                                                                    : "0",
+                                                                true),
                                                             style: TextStyle(
-                                                              color:Colors
-                                                                  .black,
+                                                              color:
+                                                                  Colors.black,
                                                               fontSize: 12,
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w700,
+                                                                  FontWeight
+                                                                      .w700,
                                                             ),
                                                             textAlign:
-                                                            TextAlign.right,
+                                                                TextAlign.right,
                                                           ),
                                                         ),
                                                       )
                                                     ]),
-
                                                     SizedBox(height: 10),
                                                   ]),
                                             ))
@@ -352,9 +381,28 @@ class _DashboardActivityState extends State<DashboardActivity>
                                   ),
                                 ),
                               )
-                            : Container(),
+                            : SizedBox(
+                          height: 400,
+                          child: Center(
+                              child: Text(
+                                "",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                textAlign: TextAlign.left,
+                              )),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
                       ],
-                    )),
+                    ),
                   )));
   }
 
@@ -383,4 +431,6 @@ class _DashboardActivityState extends State<DashboardActivity>
     var userId = await getUserId();
     presenter.callMyPackages(userId);
   }
+
+
 }

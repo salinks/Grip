@@ -21,21 +21,13 @@ class OnBoardingPageState extends State<AppIntroPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   Future<void> _onIntroEnd(context) async {
-    var lSt = GlobalVariables.userId;
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool("appIntro", true);
-    if (lSt == "") {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) =>
-            LoginActivity()),
-      );
-    }
-    else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) =>
-            HomePage()),
-      );
-    }
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) =>
+          LoginActivity()),
+    );
   }
 
 

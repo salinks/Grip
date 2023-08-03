@@ -16,9 +16,9 @@ class LoginActivityPresenter implements LoginActivityInteractor {
 
 
   @override
-  void doLogin(String userName,String password, ProgressDialog pr) async {
+  void doLogin(String userName,String password) async {
     await api.doLogin(userName,password).then((it){
-      pr.hide();
+
       if(it != null){
         if(it.result?.statusCode == "200"){
           view.successToast(it.result!.statusMessage.toString());
@@ -29,11 +29,11 @@ class LoginActivityPresenter implements LoginActivityInteractor {
 
       }
       else{
-        pr.hide();
+
         view.errorToast("Something went wrong");
       }
     }).catchError((e){
-      pr.hide();
+
       print("Exception $e");
       view.errorToast("Something went wrong");
     }

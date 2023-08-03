@@ -1,30 +1,16 @@
-
-
-
-
-
-
-
-
-
-
-import 'package:grip/interacters/dashboard_contract.dart';
-
+import '../interacters/profile_contract.dart';
 import '../webservice/api_service.dart';
 
-class DashboardPresenter implements DashboardInteractor {
-  DashboardView view;
-  DashboardPresenter(this.view);
+class MyProfilePresenter implements MyProfileInteractor {
+  MyProfileView view;
+  MyProfilePresenter(this.view);
   ApiService api = ApiService();
 
 
 
-
-
-
   @override
-  Future<void> callMyPackages(String userid) async {
-    await api.myPackages(userid).then((it){
+  Future<void> callMyProfile(String userId) async {
+    await api.myProfile(userId).then((it){
 
       if(it != null){
         if(it.result?.statusCode == "200"){
@@ -44,8 +30,6 @@ class DashboardPresenter implements DashboardInteractor {
 
     );
   }
-
-
 
 
 

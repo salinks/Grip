@@ -3,7 +3,7 @@ import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 
 class LoginActivityInteractor {
 
-  void doLogin(String email,String password,ProgressDialog pr){}
+  void doLogin(String email,String password){}
 
   void destroy(){}
 }

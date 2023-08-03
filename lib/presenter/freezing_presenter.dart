@@ -1,34 +1,19 @@
-
-
-
-
-
-
-
-
-
-
-import 'package:grip/interacters/dashboard_contract.dart';
-
+import '../interacters/freezing_contract.dart';
 import '../webservice/api_service.dart';
 
-class DashboardPresenter implements DashboardInteractor {
-  DashboardView view;
-  DashboardPresenter(this.view);
+class FreezingPresenter implements FreezingInteractor {
+  FreezingView view;
+  FreezingPresenter(this.view);
   ApiService api = ApiService();
 
 
-
-
-
-
   @override
-  Future<void> callMyPackages(String userid) async {
-    await api.myPackages(userid).then((it){
+  Future<void> callFreezingDetails(String userid) async {
+    await api.freezingDetails(userid).then((it){
 
       if(it != null){
         if(it.result?.statusCode == "200"){
-          view.successAction(it);
+          view.successFreezingAction(it);
         }else{
           view.error();
         }
@@ -44,7 +29,6 @@ class DashboardPresenter implements DashboardInteractor {
 
     );
   }
-
 
 
 

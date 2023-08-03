@@ -2,10 +2,15 @@
 class Assets {
   Assets._();
 
+  static const String imagesBgClass = 'assets/images/bg_class.png';
+  static const String imagesBgFp = 'assets/images/bg_fp.png';
   static const String imagesDashHeder = 'assets/images/dash_heder.png';
+  static const String imagesFreezeIcon = 'assets/images/freeze_icon.png';
   static const String imagesGripLogo = 'assets/images/grip_logo.png';
   static const String imagesImg1 = 'assets/images/img1.png';
   static const String imagesImg2 = 'assets/images/img2.png';
   static const String imagesImg3 = 'assets/images/img3.png';
+  static const String imagesTrainerIcon = 'assets/images/trainer_icon.png';
+  static const String imagesUserAvatar = 'assets/images/user_avatar.png';
 
 }

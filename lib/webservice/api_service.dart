@@ -1,11 +1,18 @@
 
 
 import 'dart:convert';
+import 'package:grip/models/dashboard/my_profile_response.dart';
 import 'package:grip/models/forgotPassword/forgot_password_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:grip/models/login/LoginResponse.dart';
 import 'package:grip/webservice/api_constants.dart';
 
+import '../models/booking/available_schedule.dart';
+import '../models/booking/booking_request.dart';
+import '../models/booking/booking_response.dart';
+import '../models/dashboard/cancel_booking_response.dart';
+import '../models/dashboard/freezing_details.dart';
+import '../models/dashboard/my_bookings.dart';
 import '../models/dashboard/my_packages.dart';
 
 class ApiService {
@@ -146,6 +153,243 @@ class ApiService {
 
 
 
+        Future<FreezingDetails?> freezingDetails(String userId) async {
+          try {
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.freezingDetails),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'MemberID': userId,
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              FreezingDetails _model = FreezingDetails.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              FreezingDetails _model = FreezingDetails.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              FreezingDetails mm = FreezingDetails();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+
+
+
+        Future<MyBookingResponse?> myBookings(String userId) async {
+          try {
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.bookingList),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'MemberID': userId,
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              MyBookingResponse _model = MyBookingResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              MyBookingResponse _model = MyBookingResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              MyBookingResponse mm = MyBookingResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+
+        Future<CancelBookingResponse?> cancelBooking(String userId,String bookingID) async {
+          try {
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.cancelBooking),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'MemberID': userId,
+                'BookingID': bookingID
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              CancelBookingResponse _model = CancelBookingResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              CancelBookingResponse _model = CancelBookingResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              CancelBookingResponse mm = CancelBookingResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+
+
+        Future<MyProfileResponse?> myProfile(String userId) async {
+          try {
+            final response = await http.get(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.myProfile+userId),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+
+            );
+
+            if (response.statusCode == 200) {
+
+              MyProfileResponse _model = MyProfileResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              MyProfileResponse _model = MyProfileResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              MyProfileResponse mm = MyProfileResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+
+
+        Future<AvailableScheduleResponse?> availableSchedule(String userId,String selDate,String isClass) async {
+          try {
+
+
+
+
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.availableSchedule),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'MemberID': userId,
+                'BookingDate': selDate,
+                'Is_Class': isClass
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              AvailableScheduleResponse _model = AvailableScheduleResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              AvailableScheduleResponse _model = AvailableScheduleResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              AvailableScheduleResponse mm = AvailableScheduleResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+
+
+        Future<BookingResponse?> bookNow(BookRequest req) async {
+          try {
+
+
+
+
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.bookNow),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'MemberID': req.memberID.toString(),
+                'BookingDate':  req.bookingDate.toString(),
+                'BookingPackageRegId':  req.bookingPackageRegId.toString(),
+                'ClassScheduleID':  req.classScheduleID.toString(),
+                'Is_Class':  req.isClass.toString()
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              BookingResponse _model = BookingResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              BookingResponse _model = BookingResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              BookingResponse mm = BookingResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
 
 
 

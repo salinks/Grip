@@ -79,9 +79,9 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   Future<bool> getAppIntroStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("firstName", "SALIN");
-    await prefs.setString("email", "a@b.com");
-    await prefs.setString("userId", "1");
+    // await prefs.setString("firstName", "SALIN");
+    // await prefs.setString("email", "a@b.com");
+    // await prefs.setString("userId", "1");
 
     bool token = (prefs.getBool('appIntro') ?? false);
     return token;

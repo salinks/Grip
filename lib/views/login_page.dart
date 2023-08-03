@@ -29,7 +29,7 @@ class _LoginActivityState extends State<LoginActivity>
   TextEditingController passwordController = TextEditingController();
   TextEditingController ipController = TextEditingController();
   bool _isObscure = true;
-  late ProgressDialog pr;
+
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
@@ -51,6 +51,10 @@ void doLogin(String email, String password)  {
       warningToast("Your device not connected to internet");
     }
     else{
+      if (ApiConstants.hostAddress.isEmpty) {
+        warningToast("SET HOST ADDRESS");
+        return;
+      }
       if (email.isEmpty) {
         warningToast("Username cannot be empty");
         return;
@@ -65,33 +69,14 @@ void doLogin(String email, String password)  {
         return;
       }
       FocusScope.of(context).unfocus();
-      pr.show();
+
     }
 
-    presenter.doLogin(email,password,pr);
+    presenter.doLogin(email,password);
   }
 
   @override
   Widget build(BuildContext context) {
-
-    pr = ProgressDialog(context,
-        type: ProgressDialogType.normal, isDismissible: false, showLogs: false);
-    pr.style(
-        message: 'Please Wait...',
-        borderRadius: 10.0,
-        backgroundColor: Colors.white,
-        progressWidget: CircularProgressIndicator(
-          valueColor:
-          AlwaysStoppedAnimation<Color>(Color.fromRGBO(213, 0, 109, 1.0)),
-        ),
-        elevation: 10.0,
-        insetAnimCurve: Curves.easeInOut,
-        progress: 0.0,
-        maxProgress: 100.0,
-        progressTextStyle: TextStyle(
-            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
-        messageTextStyle: TextStyle(
-            color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
 
 
 
@@ -478,15 +463,19 @@ void doLogin(String email, String password)  {
       await prefs.setString("firstName", firstName!);
       await prefs.setString("email", email!);
       await prefs.setString("userId", memberID!.toString());
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) =>
-            HomePage()),
-      );
+    gotoHome();
 
     }
 
   }
-
+  void gotoHome() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) =>
+          HomePage()),
+    );
+  }
 
 
 }
+
+
