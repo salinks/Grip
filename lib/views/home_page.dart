@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       appBar: CustomAppBar(
         height: 80,
         child: Padding(
-          padding: EdgeInsets.only(left: 15, top: 20),
+          padding: EdgeInsets.only(left: 15, top: 30),
           child: Row(children: [
             Expanded(
               child: Text(
