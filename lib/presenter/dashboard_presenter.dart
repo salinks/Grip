@@ -23,27 +23,28 @@ class DashboardPresenter implements DashboardInteractor {
 
 
   @override
-  Future<void> callMyPackages(String userid) async {
-    await api.myPackages(userid).then((it){
+  Future<void> callHomeImages() async {
+    await api.homeImages().then((it){
 
-      if(it != null){
+      if(it != null && it.result != null){
         if(it.result?.statusCode == "200"){
           view.successAction(it);
         }else{
-          view.error();
+          view.error("A");
         }
 
       }
       else{
-        view.error();
+        view.error("B");
       }
     }).catchError((e){
 
-      view.error();
+      view.error("$e");
     }
 
     );
   }
+
 
 
 

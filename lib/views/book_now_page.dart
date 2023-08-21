@@ -57,7 +57,7 @@ class _BookNowActivityState extends State<BookNowActivity>
                 height: double.infinity,
                 child: Column(children: <Widget>[
                   Container(
-                      height: 180,
+
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(213, 0, 109, 1.0),
                         borderRadius: const BorderRadius.only(
@@ -117,6 +117,7 @@ class _BookNowActivityState extends State<BookNowActivity>
                             },
                           ),
                         ),
+                        SizedBox(height: 15,)
                       ])),
                   SizedBox(
                     width: double.infinity,

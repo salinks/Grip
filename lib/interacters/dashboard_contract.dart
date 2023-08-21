@@ -1,18 +1,18 @@
+import '../models/dashboard/home_image_response.dart';
 
 
-import 'package:grip/models/dashboard/my_packages.dart';
-
-import '../models/dashboard/freezing_details.dart';
 
 class DashboardInteractor {
-  void callMyPackages(String userId){}
+  void callHomeImages(){}
 
 }
 
 class DashboardView{
-  void successAction(MyPackageResponse it) {}
+  void successAction(HomeImageResponse it) {}
 
-  void error() {}
+  void error(String msg) {
+
+  }
 
 
 }

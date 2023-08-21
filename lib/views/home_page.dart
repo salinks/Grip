@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grip/views/my_profile.dart';
 
 import '../utils/gripUtils.dart';
+import 'active_packages_page.dart';
 import 'custom_app_bar.dart';
 import 'dashboard_page.dart';
 import 'my_bookings_page.dart';
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   final pages = [
     DashboardActivity(),
+    ActivePackagesActivity(),
     MyBookingsActivity(),
     ProfileActivity(),
   ];
@@ -100,10 +102,30 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 setState(() {
                   pageIndex = 1;
-                  pageName = "My Bookings";
+                  pageName = "Active Packages";
                 });
               },
               icon: pageIndex == 1
+                  ? Icon(
+                      Icons.card_membership_outlined,
+                      color: GripUtils().parseColor("#6bdad4"),
+                      size: 35,
+                    )
+                  : const Icon(
+                      Icons.card_membership_outlined,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+            ),
+            IconButton(
+              enableFeedback: false,
+              onPressed: () {
+                setState(() {
+                  pageIndex = 2;
+                  pageName = "My Bookings";
+                });
+              },
+              icon: pageIndex == 2
                   ? Icon(
                       Icons.checklist_outlined,
                       color: GripUtils().parseColor("#6bdad4"),
@@ -119,11 +141,11 @@ class _HomePageState extends State<HomePage> {
               enableFeedback: false,
               onPressed: () {
                 setState(() {
-                  pageIndex = 2;
+                  pageIndex = 3;
                   pageName = "My Account";
                 });
               },
-              icon: pageIndex == 2
+              icon: pageIndex == 3
                   ? Icon(
                       Icons.person_outline,
                       color: GripUtils().parseColor("#6bdad4"),

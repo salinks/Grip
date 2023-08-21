@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:grip/interacters/change_password_contract.dart';
+import 'package:grip/models/dashboard/my_profile_response.dart';
+import 'package:grip/models/forgotPassword/change_password_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import '../presenter/change_password_presenter.dart';
 import '../utils/gripUtils.dart';
+import '../webservice/api_constants.dart';
 import 'custom_app_bar.dart';
 
 class ChangePasswordActivity extends StatefulWidget {
@@ -8,13 +15,22 @@ class ChangePasswordActivity extends StatefulWidget {
   _ChangePasswordActivityState createState() => _ChangePasswordActivityState();
 }
 
-class _ChangePasswordActivityState extends State<ChangePasswordActivity> {
+class _ChangePasswordActivityState extends State<ChangePasswordActivity> implements ChangePasswordsView {
   bool shouldPop = true;
   bool _isObscure = true;
+
+  late ChangePasswordPresenter presenter;
+   String? oldPassword;
+
+  TextEditingController currentPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    presenter = ChangePasswordPresenter(this);
+    callApis();
   }
 
   @override
@@ -74,6 +90,7 @@ class _ChangePasswordActivityState extends State<ChangePasswordActivity> {
                                onTap: () {},
                                textInputAction: TextInputAction.done,
                                // Controller for Password
+                               controller: currentPasswordController,
                                decoration: InputDecoration(
                                    border: InputBorder.none,
                                    hintText: "Current Password",
@@ -103,7 +120,7 @@ class _ChangePasswordActivityState extends State<ChangePasswordActivity> {
                              TextFormField(
                                onTap: () {},
                                textInputAction: TextInputAction.done,
-                               // Controller for Password
+                               controller: newPasswordController,
                                decoration: InputDecoration(
                                    border: InputBorder.none,
                                    hintText: "New Password",
@@ -133,7 +150,7 @@ class _ChangePasswordActivityState extends State<ChangePasswordActivity> {
                              TextFormField(
                                onTap: () {},
                                textInputAction: TextInputAction.done,
-                               // Controller for Password
+                               controller: confirmPasswordController,
                                decoration: InputDecoration(
                                    border: InputBorder.none,
                                    hintText: "Confirm Password",
@@ -157,7 +174,7 @@ class _ChangePasswordActivityState extends State<ChangePasswordActivity> {
                          width: double.infinity,
                          child: ElevatedButton(
                            onPressed: () {
-
+                             changePassword(currentPasswordController.text,newPasswordController.text,confirmPasswordController.text);
                            },
                            style: ElevatedButton.styleFrom(
                                padding: EdgeInsets.symmetric(
@@ -188,4 +205,117 @@ class _ChangePasswordActivityState extends State<ChangePasswordActivity> {
   Future<void> callActivePackages() async {
     var userId = await getUserId();
   }
+
+  @override
+  void error() {
+
+  }
+
+  @override
+  void dispose() {
+    currentPasswordController.dispose();
+    newPasswordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void successAction(MyProfileResponse it) {
+    if (it.result!.statusCode == "200") {
+      setState(() {
+        if (it.data != null && it.data!.isNotEmpty) {
+          oldPassword = it.data!.first.webLoginPassword.toString();
+        }
+      });
+    }
+
+  }
+
+
+  Future<void> callApis() async {
+    var userId = await getUserId();
+    presenter.callMyProfile(userId);
+  }
+
+  @override
+  void errorMessage(String s) {
+    errorToast(s);
+  }
+
+  @override
+  void onChangePassword(ChangePasswordResponse it) {
+    if (it.result!.statusCode == "200") {
+      successToast("Password changed successfully");
+      Navigator.pop(context);
+    }
+    else{
+      errorToast("Something went wrong");
+    }
+  }
+
+
+
+  void errorToast(String message) {
+    showTopSnackBar(
+      Overlay.of(context),
+      CustomSnackBar.error(
+        backgroundColor: Colors.redAccent,
+        message: message.toString(),
+      ),
+    );
+  }
+
+
+  void successToast(String message) {
+    showTopSnackBar(
+      Overlay.of(context),
+      CustomSnackBar.success(
+        message: message.toString(),
+      ),
+    );
+  }
+
+
+  Future<void> changePassword(String currentPassword, String newPassword,String confirmPassword)  async {
+    if (currentPassword.isEmpty) {
+      warningToast("Current password cannot be empty");
+      return;
+    }
+
+    if (newPassword.isEmpty) {
+      warningToast("New password cannot be empty");
+      return;
+    }
+    if (confirmPassword.isEmpty) {
+      warningToast("Confirm password cannot be empty");
+      return;
+    }
+
+    if(currentPassword != oldPassword){
+      warningToast("Incorrect Old Password");
+      return;
+    }
+     if(newPassword != confirmPassword){
+      warningToast("New password confirm password should be same");
+      return;
+    }
+
+
+      FocusScope.of(context).unfocus();
+    var userId = await getUserId();
+
+
+    presenter.changePassword(userId,newPassword);
+  }
+
+  void warningToast(String message) {
+    showTopSnackBar(
+      Overlay.of(context),
+      CustomSnackBar.info(
+        backgroundColor: Colors.orange,
+        message: message.toString(),
+      ),
+    );
+  }
+
 }

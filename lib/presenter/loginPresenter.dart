@@ -19,7 +19,7 @@ class LoginActivityPresenter implements LoginActivityInteractor {
   void doLogin(String userName,String password) async {
     await api.doLogin(userName,password).then((it){
 
-      if(it != null){
+      if(it != null && it.result != null){
         if(it.result?.statusCode == "200"){
           view.successToast(it.result!.statusMessage.toString());
           view.successAction(it);
@@ -36,6 +36,7 @@ class LoginActivityPresenter implements LoginActivityInteractor {
 
       print("Exception $e");
       view.errorToast("Something went wrong");
+    //  view.errorToast("Som  $e");
     }
 
     );

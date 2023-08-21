@@ -50,8 +50,7 @@ class _ProfileActivityState extends State<ProfileActivity>
                           valueColor: AlwaysStoppedAnimation(
                               Color.fromRGBO(107, 218, 212, 1.0)),
                         )))
-                : Expanded(
-                    child: Container(
+                :  Container(
                       color: GripUtils().parseColor("#f0f0f0"),
                       child: Column(
                         children: [
@@ -199,7 +198,7 @@ class _ProfileActivityState extends State<ProfileActivity>
                         ],
                       ),
                     ),
-                  )));
+                  ));
   }
 
   @override

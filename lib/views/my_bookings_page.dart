@@ -51,8 +51,7 @@ class _MyBookingsActivityState extends State<MyBookingsActivity>
                           valueColor: AlwaysStoppedAnimation(
                               Color.fromRGBO(107, 218, 212, 1.0)),
                         )))
-                : Expanded(
-                    child: bookingData != null && bookingData!.isNotEmpty
+                :  bookingData != null && bookingData!.isNotEmpty
                         ? ListView.builder(
                             shrinkWrap: true,
                             itemCount: bookingData!.length,
@@ -266,7 +265,7 @@ class _MyBookingsActivityState extends State<MyBookingsActivity>
                             textAlign: TextAlign.left,
                           )),
                     ),
-                  )));
+                  ));
   }
 
   @override

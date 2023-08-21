@@ -1,6 +1,7 @@
 
 
 import 'dart:convert';
+import 'package:grip/models/dashboard/home_image_response.dart';
 import 'package:grip/models/dashboard/my_profile_response.dart';
 import 'package:grip/models/forgotPassword/forgot_password_response.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ import '../models/dashboard/cancel_booking_response.dart';
 import '../models/dashboard/freezing_details.dart';
 import '../models/dashboard/my_bookings.dart';
 import '../models/dashboard/my_packages.dart';
+import '../models/forgotPassword/change_password_response.dart';
 
 class ApiService {
 
@@ -302,6 +304,40 @@ class ApiService {
         }
 
 
+        Future<HomeImageResponse?> homeImages() async {
+          try {
+            final response = await http.get(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.homeImages),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+
+            );
+
+            if (response.statusCode == 200) {
+
+              HomeImageResponse _model = HomeImageResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              HomeImageResponse _model = HomeImageResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              HomeImageResponse mm = HomeImageResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
 
 
         Future<AvailableScheduleResponse?> availableSchedule(String userId,String selDate,String isClass) async {
@@ -337,6 +373,48 @@ class ApiService {
 
             if(e.toString().startsWith("ClientException with SocketException")){
               AvailableScheduleResponse mm = AvailableScheduleResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+
+        Future<ChangePasswordResponse?> changePassword(String userId,String newPassword) async {
+          try {
+
+
+
+
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.changePassword),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'MemberID': userId,
+                'User_New_Password': newPassword
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              ChangePasswordResponse _model = ChangePasswordResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              ChangePasswordResponse _model = ChangePasswordResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              ChangePasswordResponse mm = ChangePasswordResponse();
               mm.result!.statusCode ="1000";
               mm.result!.statusMessage = "No Connection With Server";
               return mm;

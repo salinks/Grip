@@ -42,7 +42,7 @@ class _LoginActivityState extends State<LoginActivity>
 
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    ipAddressValues();
+
   }
 
 void doLogin(String email, String password)  {
@@ -249,16 +249,7 @@ void doLogin(String email, String password)  {
                   height: 50,
                   width: 200,
                 ),
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
-                  ),
-                  onPressed: () {
-                    _showBottomSheet();
-                  },
-                  child: Text('SET HOST ADDRESS'),
-                )
+
               ],
             )));
   }
@@ -269,105 +260,6 @@ void doLogin(String email, String password)  {
 
 
 
-  Future<void> _showBottomSheet() async {
-    return showModalBottomSheet(
-        isScrollControlled: false,
-        enableDrag: false,
-        isDismissible: false,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-        backgroundColor: Colors.white,
-        context: context,
-        builder: (context) => Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: SingleChildScrollView(
-                child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 50,
-                  child: Center(
-                    child: Text(
-                      "Set Host Address",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                      ),
-                      // textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: TextFormField(
-                    onTap: () {},
-                    controller: ipController,
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "IP Address",
-                        contentPadding: EdgeInsets.only(
-                            left: 20, right: 20, top: 10, bottom: 10)),
-
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                  width: 200,
-                ),
-                Container(
-                  width: 500,
-                  height: 80,
-                  padding: EdgeInsets.all(20),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-
-                      ApiConstants.hostAddress =  ipController.text;
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      await prefs.setString("ipAddress", ipController.text);
-                      setState(() {});
-                    },
-                    style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 0.0, vertical: 0.0),
-                        backgroundColor: Color.fromRGBO(213, 0, 109, 1.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0))),
-                    child: Text(
-                      "UPDATE",
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 500,
-                  height: 40,
-                  padding: EdgeInsets.only(right: 20,left: 20),
-                  child: ElevatedButton(
-                    onPressed: ()  {
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 0.0, vertical: 0.0),
-                        backgroundColor: Colors.black12,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0))),
-                    child: Text(
-                      "CANCEL",
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 150,
-                  width: 200,
-                ),
-              ],
-            ))));
-  }
 
   @override
   void dispose() {
@@ -400,13 +292,7 @@ void doLogin(String email, String password)  {
 
     return _updateConnectionStatus(result);
   }
-  Future<void> ipAddressValues() async {
-    var ipAddress = await getIpAddress();
-    ApiConstants.hostAddress = ipAddress;
-    setState(() {
-      ipController.text = ApiConstants.hostAddress;
-    });
-  }
+
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     setState(() {

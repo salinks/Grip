@@ -28,14 +28,27 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   startSplashScreen() async {
     var introStatus = await getAppIntroStatus();
-    var url = await getHostAddress();
-    ApiConstants.hostAddress = url;
+
+
     var loginStatus = await getLoginStatus();
     GlobalVariables.userId=loginStatus;
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
 
+      if (loginStatus == "") {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) =>
+              LoginActivity()),
+        );
+      }
+      else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) =>
+              HomePage()),
+        );
+      }
 
+/*
       if(introStatus){
         if (loginStatus == "") {
           Navigator.of(context).pushReplacement(
@@ -57,7 +70,11 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             return AppIntroPage();
           }),
         );
+
+
+
       }
+*/
 
 
     });
@@ -92,9 +109,5 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     String token = (prefs.getString('userId') ?? "");
     return token;
   }
-  Future<String> getHostAddress() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = (prefs.getString('ipAddress') ?? "");
-    return token;
-  }
+
 }
