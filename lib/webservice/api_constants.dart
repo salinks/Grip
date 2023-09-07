@@ -18,4 +18,6 @@ class ApiConstants {
   static String bookNow = 'member/booknow/';
   static String changePassword = 'member/ChangePassword/';
   static String regFcm = 'fcmreg';
+  static String deleteFCM = 'fcmreg/delete';
+  static String myNotifications = 'member/MyNotifications/';
 }

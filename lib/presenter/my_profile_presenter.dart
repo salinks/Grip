@@ -34,4 +34,30 @@ class MyProfilePresenter implements MyProfileInteractor {
 
 
 
+  Future<void> deleteFCM(String fcm) async {
+    await api.deleteFCM(fcm).then((it){
+
+      if(it != null){
+        if(it.result?.statusCode == "200"){
+         // view.successAction(it);
+        }else{
+          view.error();
+        }
+
+      }
+      else{
+     //   view.error();
+      }
+    }).catchError((e){
+
+    //  view.error();
+    }
+
+    );
+  }
+
+
+
+
+
 }

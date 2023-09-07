@@ -7,6 +7,7 @@ import 'active_packages_page.dart';
 import 'custom_app_bar.dart';
 import 'dashboard_page.dart';
 import 'my_bookings_page.dart';
+import 'notifications_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     DashboardActivity(),
     ActivePackagesActivity(),
     MyBookingsActivity(),
+    NotificationsActivity(),
     ProfileActivity(),
   ];
 
@@ -142,10 +144,30 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 setState(() {
                   pageIndex = 3;
-                  pageName = "My Account";
+                  pageName = "Notifications";
                 });
               },
               icon: pageIndex == 3
+                  ? Icon(
+                      Icons.notifications_none_outlined,
+                      color: GripUtils().parseColor("#6bdad4"),
+                      size: 35,
+                    )
+                  : const Icon(
+                      Icons.notifications_none_outlined,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+            ),
+            IconButton(
+              enableFeedback: false,
+              onPressed: () {
+                setState(() {
+                  pageIndex = 4;
+                  pageName = "My Account";
+                });
+              },
+              icon: pageIndex == 4
                   ? Icon(
                       Icons.person_outline,
                       color: GripUtils().parseColor("#6bdad4"),

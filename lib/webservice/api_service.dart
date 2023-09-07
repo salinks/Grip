@@ -15,6 +15,7 @@ import '../models/dashboard/cancel_booking_response.dart';
 import '../models/dashboard/freezing_details.dart';
 import '../models/dashboard/my_bookings.dart';
 import '../models/dashboard/my_packages.dart';
+import '../models/dashboard/notification_response.dart';
 import '../models/forgotPassword/change_password_response.dart';
 import '../models/login/reg_fcm_response.dart';
 
@@ -308,6 +309,77 @@ class ApiService {
 
             if(e.toString().startsWith("ClientException with SocketException")){
               CancelBookingResponse mm = CancelBookingResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+        Future<RegFCMResponse?> deleteFCM(String fcm) async {
+          try {
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.deleteFCM),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'FCM_Code': fcm
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              RegFCMResponse _model = RegFCMResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              RegFCMResponse _model = RegFCMResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              RegFCMResponse mm = RegFCMResponse();
+              mm.result!.statusCode ="1000";
+              mm.result!.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+  Future<MyNotifications?> getMyNotifications(String userId) async {
+          try {
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.myNotifications),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'Member_ID': userId
+              }),
+            );
+
+            if (response.statusCode == 200) {
+
+              MyNotifications _model = MyNotifications.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              MyNotifications _model = MyNotifications.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              MyNotifications mm = MyNotifications();
               mm.result!.statusCode ="1000";
               mm.result!.statusMessage = "No Connection With Server";
               return mm;

@@ -300,6 +300,8 @@ class _ProfileActivityState extends State<ProfileActivity>
                               SharedPreferences prefs =
                               await SharedPreferences.getInstance();
                               await prefs.setString("userId", "");
+                              String fcm = (prefs.getString('fcm') ?? "NA");
+                              presenter.deleteFCM(fcm);
                              gotoLogin();
                             },
                             style: ElevatedButton.styleFrom(
