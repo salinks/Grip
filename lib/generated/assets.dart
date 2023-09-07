@@ -7,6 +7,9 @@ class Assets {
   static const String imagesDashHeder = 'assets/images/dash_heder.png';
   static const String imagesFreezeIcon = 'assets/images/freeze_icon.png';
   static const String imagesGripLogo = 'assets/images/grip_logo.png';
+  static const String imagesHomeBanner = 'assets/images/home_banner.png';
+  static const String imagesHomeBook = 'assets/images/home_book.png';
+  static const String imagesHomePlain = 'assets/images/home_plain.png';
   static const String imagesImg1 = 'assets/images/img1.png';
   static const String imagesImg2 = 'assets/images/img2.png';
   static const String imagesImg3 = 'assets/images/img3.png';

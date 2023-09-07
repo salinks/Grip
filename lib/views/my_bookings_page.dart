@@ -204,9 +204,11 @@ class _MyBookingsActivityState extends State<MyBookingsActivity>
                                               padding:
                                               EdgeInsets.only(right: 10),
                                               child: Text(
+                                                  bookingData![index]
+                                                      .aGENDANAME != null ?
                                                 bookingData![index]
                                                     .aGENDANAME
-                                                    .toString(),
+                                                    .toString() : "-",
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 12,

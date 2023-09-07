@@ -17,4 +17,5 @@ class ApiConstants {
   static String availableSchedule = 'member/MyAvailableSchedule/';
   static String bookNow = 'member/booknow/';
   static String changePassword = 'member/ChangePassword/';
+  static String regFcm = 'fcmreg';
 }

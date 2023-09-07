@@ -16,6 +16,7 @@ import '../models/dashboard/freezing_details.dart';
 import '../models/dashboard/my_bookings.dart';
 import '../models/dashboard/my_packages.dart';
 import '../models/forgotPassword/change_password_response.dart';
+import '../models/login/reg_fcm_response.dart';
 
 class ApiService {
 
@@ -53,6 +54,54 @@ class ApiService {
 
             if(e.toString().startsWith("ClientException with SocketException")){
               LoginResponse mm = LoginResponse();
+              mm.result?.statusCode ="1000";
+              mm.result?.statusMessage = "No Connection With Server";
+              return mm;
+
+            }
+          }
+        }
+
+
+
+
+
+
+
+        Future<RegFCMResponse?> regFCM(String userId,String fcmToken,String deviceType) async {
+          try {
+
+
+            final response = await http.post(
+              Uri.parse(ApiConstants.baseUrl + ApiConstants.regFcm),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, String>{
+                'Member_ID': userId,
+                'FCM_Code': fcmToken,
+                'Device_Type': deviceType,
+              }),
+            );
+            if (response.statusCode == 200) {
+
+              RegFCMResponse _model = RegFCMResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+              return _model;
+
+            }
+            else{
+
+              try {
+                RegFCMResponse _model = RegFCMResponse.fromJson(json.decode(response.body) as Map<String, dynamic>);
+                return _model;
+              } catch (e) {
+                print(e);
+              }
+            }
+          } catch (e) {
+
+            if(e.toString().startsWith("ClientException with SocketException")){
+              RegFCMResponse mm = RegFCMResponse();
               mm.result?.statusCode ="1000";
               mm.result?.statusMessage = "No Connection With Server";
               return mm;

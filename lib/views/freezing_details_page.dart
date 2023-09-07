@@ -324,7 +324,7 @@ class _FreezingDetailsActivityState extends State<FreezingDetailsActivity>
 
                                                       Text(
 
-                                                          dateDifference(freezingData![index]).toString(),
+                                                          freezingData![index].freezingDayCount.toString(),
                                                           maxLines: 1,
                                                           overflow:
                                                           TextOverflow.clip,

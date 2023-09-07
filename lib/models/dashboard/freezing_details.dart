@@ -68,6 +68,7 @@ class FreezingData {
   Object? packageFreezeId;
   Object? freezeFromDate;
   Object? freezeToDate;
+  Object? freezingDayCount;
   Object? packageRegistrationFreezeIsDeleted;
   Object? packageRegistrationFreezeDeletedBy;
   Object? packageRegistrationFreezeDeletedDate;
@@ -91,6 +92,7 @@ class FreezingData {
         this.packageFreezeId,
         this.freezeFromDate,
         this.freezeToDate,
+        this.freezingDayCount,
         this.packageRegistrationFreezeIsDeleted,
         this.packageRegistrationFreezeDeletedBy,
         this.packageRegistrationFreezeDeletedDate});
@@ -114,6 +116,7 @@ class FreezingData {
     packageFreezeId = json['PackageFreezeId'];
     freezeFromDate = json['FreezeFromDate'];
     freezeToDate = json['FreezeToDate'];
+    freezingDayCount = json['FreezingDayCount'];
     packageRegistrationFreezeIsDeleted =
     json['PackageRegistrationFreeze_IsDeleted'];
     packageRegistrationFreezeDeletedBy =
@@ -141,6 +144,7 @@ class FreezingData {
     data['DeletedDate'] = this.deletedDate;
     data['PackageFreezeId'] = this.packageFreezeId;
     data['FreezeFromDate'] = this.freezeFromDate;
+    data['FreezingDayCount'] = this.freezingDayCount;
     data['FreezeToDate'] = this.freezeToDate;
     data['PackageRegistrationFreeze_IsDeleted'] =
         this.packageRegistrationFreezeIsDeleted;

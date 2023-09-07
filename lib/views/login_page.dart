@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/gestures.dart';
@@ -16,6 +17,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../models/login/LoginResponse.dart';
+import '../utils/global_variables.dart';
 
 class LoginActivity extends StatefulWidget {
   @override
@@ -118,7 +120,7 @@ void doLogin(String email, String password)  {
                         children: <Widget>[
                           Center(
                             child: Text(
-                              "Welcome Back",
+                              "Welcome",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -349,6 +351,16 @@ void doLogin(String email, String password)  {
       await prefs.setString("firstName", firstName!);
       await prefs.setString("email", email!);
       await prefs.setString("userId", memberID!.toString());
+      await prefs.setString("fcm",GlobalVariables.fcmToken);
+
+      String deviceType="";
+
+      if (Platform.isIOS) {
+        deviceType = "iOS";
+      } else if (Platform.isAndroid) {
+        deviceType = "Android";
+      }
+      presenter.registerFCM(memberID!.toString(),GlobalVariables.fcmToken,deviceType);
     gotoHome();
 
     }

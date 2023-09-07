@@ -74,34 +74,33 @@ class _DashboardActivityState extends State<DashboardActivity>
                           width: double.infinity,
                           height: 150,
                           decoration: BoxDecoration(
-                            color: const Color.fromRGBO(0, 0, 0, 0.8),
+
                             image: DecorationImage(
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                  Colors.black.withOpacity(0.2),
-                                  BlendMode.dstATop),
+                              fit: BoxFit.fill,
+
                               image: AssetImage(
-                                './assets/images/dash_heder.png',
+                                './assets/images/home_book.png',
                               ),
                             ),
                           ),
                           child: Container(
-                            width: double.infinity,
+
                             height: double.infinity,
-                            margin: EdgeInsets.only(top: 20),
-                            child: Center(
+                            margin: EdgeInsets.only(top: 20,left: 20),
+                            child: Align(
+                              alignment: Alignment.center,
                               child: Column(
                                 children: <Widget>[
                                   Text(
-                                    "SCHEDULE YOUR CLASSES / SESSIONS"
+                                    "SCHEDULE YOUR\nCLASSES / SESSIONS"
                                         .toUpperCase(),
                                     style: TextStyle(
                                       letterSpacing: 2.5,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w700,
                                     ),
-                                    textAlign: TextAlign.left,
+                                    textAlign: TextAlign.center,
                                   ),
                                   SizedBox(
                                     width: 100,

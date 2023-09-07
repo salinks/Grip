@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:grip/utils/NotificationService.dart';
 import 'package:grip/utils/global_variables.dart';
 import 'package:grip/utils/gripUtils.dart';
 import 'package:grip/views/appIntroPage.dart';
@@ -20,9 +21,11 @@ class SplashScreenPage extends StatefulWidget {
 }
 
 class _SplashScreenPageState extends State<SplashScreenPage> {
+  final _messagingService = MessagingService();
   @override
   void initState() {
     super.initState();
+    _messagingService.init(context);
     startSplashScreen();
   }
 

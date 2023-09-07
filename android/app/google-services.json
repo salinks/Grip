@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "854617148065",
+    "project_id": "grip-notification",
+    "storage_bucket": "grip-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854617148065:android:5c942a5d25fc91d3c5bee0",
+        "android_client_info": {
+          "package_name": "com.jd.gripladies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854617148065-99f0as0734o3kp7nk28dlmtshljs00gs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACjDvOOC2zRV7u1bbvQ9PnSZ3XZMPgZRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854617148065-99f0as0734o3kp7nk28dlmtshljs00gs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
