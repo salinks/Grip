@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:grip/utils/global_variables.dart';
 
+import '../views/change_password_page.dart';
+
 class MessagingService {
 
 
@@ -108,12 +110,14 @@ class MessagingService {
 
   // Handling a notification click event by navigating to the specified screen
   void _handleNotificationClick(BuildContext context, RemoteMessage message) {
-    final notificationData = message.data;
 
-    if (notificationData.containsKey('screen')) {
-      final screen = notificationData['screen'];
-      Navigator.of(context).pushNamed(screen);
-    }
+
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //       builder: (context) =>
+    //           ChangePasswordActivity()),
+    // );
   }
 
 
