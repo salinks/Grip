@@ -55,7 +55,9 @@ class _BookNowActivityState extends State<BookNowActivity>
             body: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
-                child: Column(children: <Widget>[
+                child: 
+
+                Column(children: <Widget>[
                   Container(
 
                       decoration: BoxDecoration(
@@ -165,58 +167,58 @@ class _BookNowActivityState extends State<BookNowActivity>
                                             Color.fromRGBO(107, 218, 212, 1.0)),
                                       ))))
                           : (listData != null && listData!.isNotEmpty)
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: listData!.length,
-                                  itemBuilder: (context, index) => SizedBox(
-                                        width: double.infinity,
-                                        child: GestureDetector(
-                                          onTap: () => {
-                                            showSessionInfo(listData![index])
-                                          },
-                                          child: Card(
-                                            margin: const EdgeInsets.only(
-                                                left: 0, right: 0, bottom: 10),
-                                            color: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(0)),
-                                            child: ListTile(
-                                                title: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    SizedBox(height: 5),
-                                                    Text(
-                                                      listData![index]
-                                                          .scheduleDescription!
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    SizedBox(height: 5),
-                                                    Text(
-                                                      'Trainer : ${listData![index].trinerName.toString()}  \u2022  Time : ${listData![index].timeSlot.toString()}',
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    SizedBox(height: 5)
-                                                  ],
-                                                ),
-                                                trailing: Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_outlined,
-                                                  color: Colors.black54,
-                                                )),
-                                          ),
-                                        ),
-                                      ))
+                              ? Expanded(child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: listData!.length,
+                      itemBuilder: (context, index) => SizedBox(
+                        width: double.infinity,
+                        child: GestureDetector(
+                          onTap: () => {
+                            showSessionInfo(listData![index])
+                          },
+                          child: Card(
+                            margin: const EdgeInsets.only(
+                                left: 0, right: 0, bottom: 10),
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(0)),
+                            child: ListTile(
+                                title: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    SizedBox(height: 5),
+                                    Text(
+                                      listData![index]
+                                          .scheduleDescription!
+                                          .toString(),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight:
+                                          FontWeight.w600),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      'Trainer : ${listData![index].trinerName.toString()}  \u2022  Time : ${listData![index].timeSlot.toString()}',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight:
+                                          FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 5)
+                                  ],
+                                ),
+                                trailing: Icon(
+                                  Icons
+                                      .arrow_forward_ios_outlined,
+                                  color: Colors.black54,
+                                )),
+                          ),
+                        ),
+                      )))
                               : SizedBox(
                                   height: 400,
                                   child: Center(
@@ -246,58 +248,58 @@ class _BookNowActivityState extends State<BookNowActivity>
                                             Color.fromRGBO(107, 218, 212, 1.0)),
                                       ))))
                           : (listData != null && listData!.isNotEmpty)
-                              ? ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: listData!.length,
-                                  itemBuilder: (context, index) => SizedBox(
-                                        width: double.infinity,
-                                        child: GestureDetector(
-                                          onTap: () => {
-                                            showClassInfo(listData![index])
-                                          },
-                                          child: Card(
-                                            margin: const EdgeInsets.only(
-                                                left: 0, right: 0, bottom: 10),
-                                            color: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(0)),
-                                            child: ListTile(
-                                                title: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    SizedBox(height: 5),
-                                                    Text(
-                                                      listData![index]
-                                                          .scheduleDescription!
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    ),
-                                                    SizedBox(height: 5),
-                                                    Text(
-                                                      'Trainer : ${listData![index].trinerName.toString()}  \u2022  Time : ${listData![index].timeSlot.toString()}  \u2022  ${listData![index].seatCapacity.toString()} Seats available',
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                    SizedBox(height: 5)
-                                                  ],
-                                                ),
-                                                trailing: Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_outlined,
-                                                  color: Colors.black54,
-                                                )),
-                                          ),
-                                        ),
-                                      ))
+                              ? Expanded(child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: listData!.length,
+                      itemBuilder: (context, index) => SizedBox(
+                        width: double.infinity,
+                        child: GestureDetector(
+                          onTap: () => {
+                            showClassInfo(listData![index])
+                          },
+                          child: Card(
+                            margin: const EdgeInsets.only(
+                                left: 0, right: 0, bottom: 10),
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(0)),
+                            child: ListTile(
+                                title: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    SizedBox(height: 5),
+                                    Text(
+                                      listData![index]
+                                          .scheduleDescription!
+                                          .toString(),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight:
+                                          FontWeight.w600),
+                                    ),
+                                    SizedBox(height: 5),
+                                    Text(
+                                      'Trainer : ${listData![index].trinerName.toString()}  \u2022  Time : ${listData![index].timeSlot.toString()}  \u2022  ${listData![index].seatCapacity.toString()} Seats available',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight:
+                                          FontWeight.w400),
+                                    ),
+                                    SizedBox(height: 5)
+                                  ],
+                                ),
+                                trailing: Icon(
+                                  Icons
+                                      .arrow_forward_ios_outlined,
+                                  color: Colors.black54,
+                                )),
+                          ),
+                        ),
+                      )))
                               : SizedBox(
                                   height: 400,
                                   child: Center(
@@ -311,7 +313,11 @@ class _BookNowActivityState extends State<BookNowActivity>
                                     textAlign: TextAlign.left,
                                   )),
                                 )
-                ]))));
+                ])
+
+
+
+            )));
   }
 
   Future<String> getUserId() async {
